@@ -1,9 +1,9 @@
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional, Any
 
-import gym
+import gymnasium as gym
 import numpy as np
 import pygame
-from gym import spaces
+from gymnasium import spaces
 from pygame import gfxdraw
 
 BLACK = (0, 0, 0)
@@ -126,7 +126,7 @@ class ContinuousMaze(gym.Env):
         self.isopen = True
         self.all_pos = []
 
-    def step(self, action: np.ndarray) -> Tuple[np.ndarray, float, bool, Dict]:
+    def step(self, action: np.ndarray) -> tuple[np.ndarray, float, bool, bool, Dict]:
         new_pos = self.pos + action
         for wall in self.walls:
             intersection = get_intersect(wall[0], wall[1], self.pos, new_pos)
@@ -134,12 +134,12 @@ class ContinuousMaze(gym.Env):
                 new_pos = self.pos
         self.pos = new_pos
         self.all_pos.append(self.pos.copy())
-        return self.pos.copy(), 0.0, False, {}
+        return self.pos.copy(), 0.0, False, False, {}
 
-    def reset(self) -> np.ndarray:
+    def reset(self) -> tuple[np.ndarray, dict[str, Any]]:
         self.pos = np.zeros(2)
         self.all_pos.append(self.pos.copy())
-        return self.pos.copy()
+        return self.pos.copy(), {}
 
     def render(self, mode: str = "human"):
         screen_dim = 500
