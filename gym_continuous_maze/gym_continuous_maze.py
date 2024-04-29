@@ -121,7 +121,7 @@ class ContinuousMaze(gym.Env):
         ]
     )
 
-    def __init__(self) -> None:
+    def __init__(self, **kwargs) -> None:
         self.screen = None
         self.isopen = True
         self.all_pos = []
@@ -136,7 +136,7 @@ class ContinuousMaze(gym.Env):
         self.all_pos.append(self.pos.copy())
         return self.pos.copy(), 0.0, False, False, {}
 
-    def reset(self) -> tuple[np.ndarray, dict[str, Any]]:
+    def reset(self, *args, **kwargs) -> tuple[np.ndarray, dict[str, Any]]:
         self.pos = np.zeros(2)
         self.all_pos.append(self.pos.copy())
         return self.pos.copy(), {}

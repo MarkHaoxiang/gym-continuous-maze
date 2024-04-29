@@ -44,10 +44,9 @@ class ContinuousLidarMaze(ContinuousMaze):
                     distances[i] = min(distances[i], distance)
         return distances
     
-    def reset(self) -> tuple[ndarray, dict[str, Any]]:
-        pos, info = super().reset()
+    def reset(self, *args, **kwargs) -> tuple[ndarray, dict[str, Any]]:
+        pos, info = super().reset(*args, **kwargs)
         lidar = self.get_lidar_data(self.pos)
-        print(pos.shape, lidar.shape)
         obs = np.concatenate((pos, lidar))
         return obs, info
 
