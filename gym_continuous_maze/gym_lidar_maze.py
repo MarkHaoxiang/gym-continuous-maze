@@ -57,6 +57,7 @@ class ContinuousLidarMaze(ContinuousMaze):
             intersection = get_intersect(wall[0], wall[1], self.pos, new_pos)
             if intersection is not None:
                 # Edit 1: Death
+                self.pos = intersection
                 lidar = self.get_lidar_data(self.pos)
                 obs = np.concatenate((self.pos, lidar))
                 return obs, 0.0, True, False, {}

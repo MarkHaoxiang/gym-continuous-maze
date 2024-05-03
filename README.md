@@ -1,6 +1,8 @@
 # gym-continuous-maze
 
-Continuous maze environment integrated with OpenAI/Gym
+Continuous maze environment integrated with OpenAI/Gym.
+
+This fork updates the original environment to be compatible with the latest version of gymnasium, and adds ContinuousLidarMaze --- the maze adapted with local lidar distance measurements, and termination on hitting a wall.
 
 ## Installation
 
