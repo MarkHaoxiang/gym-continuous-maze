@@ -11,7 +11,9 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0)
 
 
-def get_intersect(A: np.ndarray, B: np.ndarray, C: np.ndarray, D: np.ndarray) -> Optional[np.ndarray]:
+def get_intersect(
+    A: np.ndarray, B: np.ndarray, C: np.ndarray, D: np.ndarray
+) -> Optional[np.ndarray]:
     """
     Get the intersection of [A, B] and [C, D]. Return False if segment don't cross.
 
@@ -173,7 +175,9 @@ class ContinuousMaze(gym.Env):
         if mode == "human":
             pygame.display.flip()
         elif mode == "rgb_array":
-            return np.transpose(np.array(pygame.surfarray.pixels3d(self.screen)), axes=(1, 0, 2))
+            return np.transpose(
+                np.array(pygame.surfarray.pixels3d(self.screen)), axes=(1, 0, 2)
+            )
         else:
             return self.isopen
 

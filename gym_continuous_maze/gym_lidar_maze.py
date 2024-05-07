@@ -6,30 +6,34 @@ from gymnasium import spaces
 
 from .gym_continuous_maze import ContinuousMaze, get_intersect
 
-class ContinuousLidarMaze(ContinuousMaze):
-    """ An adaptation of Continuous Maze to 
 
-        1. Add Lidar Sensor Observations
-        2. Death on collision with a wall
+class ContinuousLidarMaze(ContinuousMaze):
+    """An adaptation of Continuous Maze to
+
+    1. Add Lidar Sensor Observations
+    2. Death on collision with a wall
     """
+
     lidar_range = 1.0
 
     action_space = spaces.Box(-1, 1, (2,))
     observation_space = spaces.Box(
-        low = np.array([-12,-12, 0, 0, 0, 0, 0, 0, 0, 0]),
-        high = np.array([12, 12, 1, 1, 1, 1, 1, 1, 1, 1])
+        low=np.array([-12, -12, 0, 0, 0, 0, 0, 0, 0, 0]),
+        high=np.array([12, 12, 1, 1, 1, 1, 1, 1, 1, 1]),
     )
 
-    rays = np.array([
-        [1.0, 0],
-        [1/math.sqrt(2), 1/math.sqrt(2)],
-        [0.0, 1.0],
-        [-1/math.sqrt(2), 1/math.sqrt(2)],
-        [-1.0, 0.0],
-        [-1/math.sqrt(2), -1/math.sqrt(2)],
-        [0.0, -1.0],
-        [1/math.sqrt(2), -1/math.sqrt(2)]
-    ])
+    rays = np.array(
+        [
+            [1.0, 0],
+            [1 / math.sqrt(2), 1 / math.sqrt(2)],
+            [0.0, 1.0],
+            [-1 / math.sqrt(2), 1 / math.sqrt(2)],
+            [-1.0, 0.0],
+            [-1 / math.sqrt(2), -1 / math.sqrt(2)],
+            [0.0, -1.0],
+            [1 / math.sqrt(2), -1 / math.sqrt(2)],
+        ]
+    )
 
     def get_lidar_data(self, pos: ndarray):
         rays = self.lidar_range * self.rays
@@ -43,7 +47,7 @@ class ContinuousLidarMaze(ContinuousMaze):
                     distance = np.linalg.norm(intersection)
                     distances[i] = min(distances[i], distance)
         return distances
-    
+
     def reset(self, *args, **kwargs) -> tuple[ndarray, dict[str, Any]]:
         pos, info = super().reset(*args, **kwargs)
         lidar = self.get_lidar_data(self.pos)
