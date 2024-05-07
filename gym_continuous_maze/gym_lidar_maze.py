@@ -8,7 +8,7 @@ from .gym_continuous_maze import ContinuousMaze, get_intersect
 
 
 class ContinuousLidarMaze(ContinuousMaze):
-    """An adaptation of Continuous Maze to
+    """An adaptation of ContinuousMaze to
 
     1. Add Lidar Sensor Observations
     2. Death on collision with a wall
@@ -35,7 +35,15 @@ class ContinuousLidarMaze(ContinuousMaze):
         ]
     )
 
-    def get_lidar_data(self, pos: ndarray):
+    def get_lidar_data(self, pos: ndarray) -> ndarray:
+        """ Get Lidar sensor data
+
+        Args:
+            pos (ndarray): (x, y)
+
+        Returns:
+            ndarray: (8, ) lidar scans in 8 ordinal directions
+        """
         rays = self.lidar_range * self.rays
         distances = np.ones((8,)) * self.lidar_range
         for i, ray in enumerate(rays):
